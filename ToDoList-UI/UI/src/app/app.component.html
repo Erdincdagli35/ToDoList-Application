@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Main Page</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .banner {
+      background: linear-gradient(90deg, #007bff, #00d4ff);
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+    .main-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .btn-custom {
+      width: 150px;
+      margin: 0 10px;
+      background: linear-gradient(90deg, #007bff, #00d4ff);
+      border: none;
+      color: white;
+    }
+    .btn-custom:hover {
+      background: linear-gradient(90deg, #0069d9, #00c2e0);
+    }
+    .footer {
+      background-color: #f4f4f4;
+      color: #555;
+      text-align: center;
+      padding: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <a href="/home" class="btn btn-primary"><h1>To-Do List Application</h1></a>
+  </div>
+  <div class="main-container">
+    <div class="text-center" *ngIf="showButtons">
+      <h2>Welcome</h2>
+      <div class="mt-4">
+        <button class="btn btn-custom" routerLink="/user-login">Login</button>
+        <button class="btn btn-custom" routerLink="/user-signup">Sign Up</button>
+      </div>
+    </div>
+    <router-outlet></router-outlet> 
+  </div>
+  <footer class="footer">
+    <p>&copy; 2024 To-Do List Application. All rights reserved.</p>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

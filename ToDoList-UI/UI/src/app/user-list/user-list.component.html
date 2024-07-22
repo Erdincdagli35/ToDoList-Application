@@ -1,0 +1,27 @@
+<hr>
+<div class="table-container">
+    <div class="container mt-4">
+        <router-outlet></router-outlet>
+      </div>
+    <h2>User List</h2> 
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Actions</th>
+                <th><button class="btn btn-primary back-btn" routerLink="/main-dashboard">Back</button></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <td>{{ user.id }}</td>
+                <td>{{ user.name }}</td>
+                <td>
+                    <button class="btn btn-primary mr-2" routerLink="/user-password-change" >Change Password</button>
+                    <button class="btn btn-primary mr-2" (click)="deleteUser(user.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
