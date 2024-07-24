@@ -21,6 +21,7 @@ export class AppComponent {
     // Rotaya göre butonların gösterilip gösterilmeyeceğini belirleyin
     this.showButtons = !(url.includes('/user-login') || url.includes('/user-signup') || 
                         url.includes('main-dashboard') || url.includes('/user-list') || 
-                        url.includes('/task-list') || url.includes('/task-add') );
+                        url.includes('/task-list') || url.includes('/task-add') || 
+                        url.includes('/user-password-change') || url.includes('/task-edit'));
   }
 }

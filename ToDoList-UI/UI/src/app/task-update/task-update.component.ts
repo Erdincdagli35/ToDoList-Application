@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { TaskService } from '../task-service/task-service';
 import { Task } from '../models/Task';
+import { Status } from '../models/Status';
 
 @Component({
   selector: 'app-task-update',
@@ -14,6 +15,9 @@ export class TaskUpdateComponent {
 
   taskTemp : Task = new Task();
   task : Task = new Task();
+
+  taskStatus: { status: Status } = { status: Status.NoProgress };
+  statuses: string[] = Object.values(Status);
 
     constructor(private taskService : TaskService, 
                 private activetedRoute: ActivatedRoute, 
@@ -33,6 +37,6 @@ export class TaskUpdateComponent {
     }
 
     goToList() {
-      this.router.navigate(['/task-list']);
+      this.router.navigate(['/task-list-by-user']);
     }
 }

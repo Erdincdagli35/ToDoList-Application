@@ -22,14 +22,12 @@ export class UserLoginComponent {
     ngOnInit(): void {
     }
 
-    getUserName(){
-      return this.currentUserName;
-    }
 
     login() {
       this.userService.login(this.user).subscribe(data => {
         this.currentUserName = this.user.name;
         this.userService.setUserName(this.currentUserName);
+        console.log("currentUsernma : " + this.currentUserName);
       },
         error => console.log(error));
     }

@@ -28,7 +28,7 @@ public class TaskController {
     private TaskService taskService;
 
 
-    @PutMapping("/addTaskToUser/{userName}")
+    @PostMapping("/addTaskToUser/{userName}")
     //@Operation(summary = "User Sign Up", description = "Register a new user in the system")
     public ResponseEntity addTaskToUser(@RequestBody Task task,
                                         @PathVariable String userName) {

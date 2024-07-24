@@ -7,9 +7,11 @@
     <table class="table table-striped">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Title</th>
                 <th>Description</th>
                 <th>Status</th>
+                <th>User ID</th>
                 <th>Actions</th>
                 <th><button class="btn btn-primary back-btn" routerLink="/main-dashboard">Back</button>|
                     <button class="btn btn-primary back-btn" routerLink="/task-add">Add</button></th>
@@ -17,13 +19,14 @@
         </thead>
         <tbody>
             <tr *ngFor="let task of tasks">
+                <td>{{ task.id }}</td>
                 <td>{{ task.title }}</td>
                 <td>{{ task.description }}</td>
                 <td>{{ task.status }}</td>
+                <td>{{ task.userId }}</td>
                 <td>
-                    <button class="btn btn-primary mr-2" (click)="deleteTask(userAndTask.taskId)">Delete</button>
+                    <button class="btn btn-primary mr-2" (click)="deleteTask(task.id)">Delete</button>
                     <button class="btn btn-primary mr-2" routerLink="/task-edit">Update</button>
-                    <button class="btn btn-primary mr-2" >Change Status</button>
                 </td>
             </tr>
         </tbody>

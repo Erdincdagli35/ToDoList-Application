@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: 'user-password-change', component: UserPasswordChangeComponent},
 
   //{ path: 'task-list', component: TaskListComponent},
-  { path: 'task-list', component: TaskListComponent},
+  { path: 'task-list-by-user', component: TaskListComponent},
   { path: 'task-delete/:id', component: TaskDeleteComponent},
   { path: 'task-edit', component: TaskUpdateComponent},
   { path: 'task-add', component:TaskAddComponent},

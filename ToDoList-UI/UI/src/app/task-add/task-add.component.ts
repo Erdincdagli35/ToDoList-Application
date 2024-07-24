@@ -21,6 +21,7 @@ export class TaskAddComponent {
   user: User = new User();
 
   userName : string = "";
+  //currentUserNameString : string ="";
 
   constructor(private taskService: TaskService, 
               private userService: UserService,
@@ -28,23 +29,23 @@ export class TaskAddComponent {
               private router: Router){}
 
   ngOnInit(): void {
-    this.userName = this.userService.getUserName();
-    this.addToTask(this.userName);
-  }
-
-  addToTask(userName : string){
-    this.taskService.addTaskByName(this.task,userName).subscribe(data => {
-      this.goToTaskList();
-    })
   }
 
   goToTaskList() {
-    this.router.navigate(['task-list']); 
+    this.router.navigate(['/task-list-by-user']);
   }
   
   onSubmit() {
-    console.log(this.task);
-    this.addToTask(this.userName);
+    const currentUserName = this.userService.getUserName();
+    console.log("currentUserName : " + currentUserName);
+
+    const currentUserNameString: string = currentUserName.toString();
+    console.log("currentUserNameString : " + currentUserNameString);
+
+
+    this.taskService.addTaskByName(this.task,currentUserNameString).subscribe(data => {
+      this.goToTaskList();
+    })
   }
 
 }

@@ -32,7 +32,8 @@
                 <label for="name">User ID</label>
                 <input type="text" class="form-control" id="userId" name="userId" [(ngModel)]="task.userId" placeholder="User ID" required>
             </div>
-            <button type="submit" class="btn btn-primary" >Submit</button>
+            <button type="submit" class="btn btn-primary" (click)="onSubmit()">Submit</button>
+            <button type="submit" class="btn btn-primary" routerLink="/main-dashboard">Back</button>
         </form>
     </div>
 

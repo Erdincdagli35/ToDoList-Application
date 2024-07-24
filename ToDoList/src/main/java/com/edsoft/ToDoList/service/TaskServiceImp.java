@@ -28,86 +28,38 @@ public class TaskServiceImp implements TaskService {
     @Override
     public String addTaskToUser(Task task, String userName) {
         User user = userRepository.findOneByName(userName);
-        List<String> taskIds = new ArrayList<>();
+        List<String> taskIds = user.getTaskIds();
 
-        if (user.getTaskIds() == null) {
-            taskIds.add(task.getId());
-            user.setTaskIds(taskIds);
-            task.setUserName(user.getId());
-        } else if (user.getTaskIds() != null) {
-            taskIds = user.getTaskIds();
-            task.setUserName(user.getId());
-
-            taskIds.add(task.getId());
+        if (taskIds == null) {
+            taskIds = new ArrayList<>();
             user.setTaskIds(taskIds);
         }
 
-        taskRepository.save(task);
-        userRepository.save(user);
+        taskRepository.save(task);  // Save the task first to generate its ID
+
+        taskIds.add(task.getId());  // Ensure the task ID is added after the task is saved
+        user.setTaskIds(taskIds);
+
+        userRepository.save(user);  // Save the user with the updated task IDs list
         return task.getId();
     }
 
-    /*
-    @Override
-    public List<UserAndTask> getAllByUser(String userName) {
-        User user = userRepository.findOneByName(userName);
-        List<Task> taskList = new ArrayList<>();
-        List<UserAndTask> userAndTasksList = new ArrayList<>();
-        if (user != null) {
-            List<String> taskIdsList = user.getTaskIds();
-            Task task = new Task();
-            for (String taskId : taskIdsList) {
-                task = taskRepository.findOneById(taskId);
-                taskList.add(task);
-            }
-
-            for (Task t : taskList) {
-                if (user.getId().equals(t.getUserId())) {
-                    UserAndTask userAndTask = new UserAndTask();
-
-                    userAndTask.setId(user.getId());
-                    userAndTask.setName(user.getName());
-                    userAndTask.setTaskId(task.getId());
-                    userAndTask.setTitle(t.getTitle());
-                    userAndTask.setStatus(t.getStatus());
-                    userAndTask.setDescription(t.getDescription());
-
-                    userAndTasksList.add(userAndTask);
-                }
-            }
-        }
-
-        return userAndTasksList;
-    }*/
 
     @Override
     public List<Task> getAllByUser(String userName) {
         User user = userRepository.findOneByName(userName);
         List<Task> taskList = new ArrayList<>();
-        List<UserAndTask> userAndTasksList = new ArrayList<>();
+
         if (user != null) {
             List<String> taskIdsList = user.getTaskIds();
-            Task task = new Task();
-            for (String taskId : taskIdsList) {
-                task = taskRepository.findOneById(taskId);
-                taskList.add(task);
-            }
-            /*
-            for (Task t : taskList) {
-                if (user.getId().equals(t.getUserId())) {
-                    UserAndTask userAndTask = new UserAndTask();
-
-                    userAndTask.setId(user.getId());
-                    userAndTask.setName(user.getName());
-                    userAndTask.setTaskId(task.getId());
-                    userAndTask.setTitle(t.getTitle());
-                    userAndTask.setStatus(t.getStatus());
-                    userAndTask.setDescription(t.getDescription());
-
-                    userAndTasksList.add(userAndTask);
+            if(taskIdsList != null) {
+                for (String taskId : taskIdsList) {
+                    Task task = taskRepository.findOneById(taskId);
+                    if (task != null) {
+                        taskList.add(task);
+                    }
                 }
-            }*/
-
+            }
         }
 
         return taskList;

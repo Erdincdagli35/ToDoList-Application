@@ -21,6 +21,6 @@ public class Task {
     //private DateTime endDateTime;
 
     @Field
-    private String userName;
+    private String userId;
 }
 

@@ -40,7 +40,11 @@ public class UserServiceImp implements UserService {
     @Override
     public User login(User user) {
         log.info("User logged in with user.name: {}", user.getName());
+        User userTemp = userRepository.findOneByName(user.getName());
         user.setJwtToken(jwtUtil.generateToken(user.getName()));
+        user.setId(userTemp.getId());
+
+        userRepository.save(user);
         return user;
     }
 
