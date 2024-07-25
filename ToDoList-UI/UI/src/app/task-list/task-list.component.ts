@@ -6,6 +6,7 @@ import { UserService } from '../user-service/user-service';
 
 import { UserAndTask } from '../models/UserAndTask';
 import { Task } from '../models/Task';
+import { Status } from '../models/Status';
 
 @Component({
   selector: 'app-task-list',
@@ -16,9 +17,12 @@ export class TaskListComponent {
   userAndTasks : UserAndTask[] = [];
   userAndTask : UserAndTask = new UserAndTask();
 
-  
   task : Task = new Task();
   tasks : Task[] = [];
+
+  statusFilter: Status | null = null; 
+
+  loggedUserName : string = "";
 
   constructor(private taskService:TaskService, 
               private userService:UserService,
@@ -33,8 +37,10 @@ export class TaskListComponent {
     
     const currentUserNameString: string = currentUserName.toString();
     console.log("currentUserNameString : " + currentUserNameString);
-    
-    this.taskService.getTaskByName(currentUserNameString).subscribe(data => {
+    this.loggedUserName = currentUserName;
+    const status = this.statusFilter !== null ? this.statusFilter : undefined;
+
+    this.taskService.getTaskByName(currentUserNameString, status).subscribe(data => {
       console.log("data : " + data);
       this.tasks = data;
       console.log("this.tasks : " + this.tasks);
@@ -45,11 +51,14 @@ export class TaskListComponent {
     this.router.navigate(['/task-delete',id]);
   }
 
-  updateTask(){
+  updateTask() {
     this.router.navigate(['/task-edit']);
   }
-
   goToTaskList(){
     this.router.navigate(['/task-list-by-user']);
+  }
+
+  applyFilter() {
+    this.getTaskByName();  // Fetch tasks based on the selected filter
   }
 }

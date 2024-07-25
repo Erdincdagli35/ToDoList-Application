@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { UserAndTask } from '../models/UserAndTask';
 import { Task } from '../models/Task';
+import { Status } from '../models/Status';
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +29,9 @@ export class TaskService {
     return this.httpClient.put(this.baseURL, task);
   }
   
-  getTaskByName(name: string): Observable<Task[]> {
-    return this.httpClient.get<Task[]>(`${this.baseURL}/${name}`);
+  getTaskByName(userName: string, status?: Status): Observable<Task[]> {
+    const statusParam = status ? `&status=${status}` : '';
+    return this.httpClient.get<Task[]>(`${this.baseURL}/${userName}?${statusParam}`);
   }
   
   addTaskByName(task: Task, name: string): Observable<Task> {

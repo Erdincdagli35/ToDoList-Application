@@ -14,4 +14,6 @@ public interface TaskRepository extends CouchbaseRepository<Task, String> {
     Task findOneByTitle(String title);
 
     List<Task> findAll();
+
+    List<Task> findByUserIdAndStatus(String taskId);
 }

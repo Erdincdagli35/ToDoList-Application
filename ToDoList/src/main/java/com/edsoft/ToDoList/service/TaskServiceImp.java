@@ -72,6 +72,27 @@ public class TaskServiceImp implements TaskService {
     }
 
     @Override
+    public List<Task> getAllByUserAndStatus(String userName, Status status) {
+        User user = userRepository.findOneByUserName(userName);
+        List<Task> taskList = new ArrayList<>();
+
+        if (user != null) {
+            List<String> taskIdsList = user.getTaskIds();
+            if (taskIdsList != null) {
+                // Filter tasks by status
+                for (String taskId : taskIdsList) {
+                    Task task = taskRepository.findById(taskId).orElse(null);
+                    if (task != null && task.getStatus() == status) {
+                        taskList.add(task);
+                    }
+                }
+            }
+        }
+
+        return taskList;
+    }
+
+    @Override
     public String delete(String taskId) {
         Task task = taskRepository.findOneById(taskId);
         String userId = task.getUserId();

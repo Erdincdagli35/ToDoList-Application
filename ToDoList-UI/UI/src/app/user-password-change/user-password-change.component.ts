@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { UserService } from '../user-service/user-service';
 import { UserPasswordChangePojo } from '../models/UserPasswordChangePojo';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-user-password-change',
@@ -12,20 +13,21 @@ import { UserPasswordChangePojo } from '../models/UserPasswordChangePojo';
 })
 export class UserPasswordChangeComponent {
 
-  userTemp : UserPasswordChangePojo = new UserPasswordChangePojo();
-  user : UserPasswordChangePojo = new UserPasswordChangePojo();
+  userPCPTemp : UserPasswordChangePojo = new UserPasswordChangePojo();
+  userPCP : UserPasswordChangePojo = new UserPasswordChangePojo();
+
+  user : User = new User();
 
     constructor(private userService : UserService, 
                 private activetedRoute: ActivatedRoute, 
                 private router: Router){}
 
     ngOnInit(): void {
-     
     }
 
     onSubmit(){
-       console.log("onSubmit : user : " + this.user.name);
-      this.userService.passwordChange(this.user)
+       console.log("onSubmit : user : " + this.userPCP.name);
+      this.userService.passwordChange(this.userPCP)
                          .subscribe(data => {
         console.log("updateuser");
         this.goToList();
