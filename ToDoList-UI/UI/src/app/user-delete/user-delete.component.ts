@@ -29,6 +29,6 @@ export class UserDeleteComponent {
   }
 
   goToList() {
-    this.router.navigate(['/main-dashboard']);
+    this.router.navigate(['/user-list']);
   }
 }

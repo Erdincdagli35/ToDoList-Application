@@ -1,6 +1,9 @@
 export class User {
     id : string = "";
-    name : string = "";
+    userName : string = "";
     password : string = "";
     jwtToken : string = "" ;
+    name : string = "" ;
+    surname : string = "" ;
+    email : string = "" ;
   }

@@ -14,4 +14,5 @@ public interface UserRepository extends CouchbaseRepository<User, String> {
     User findOneById(String id);
 
     User findOneByName(String name);
+    User findOneByUserName(String name);
 }

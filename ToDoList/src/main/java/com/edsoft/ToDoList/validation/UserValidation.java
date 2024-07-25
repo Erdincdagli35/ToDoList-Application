@@ -18,7 +18,7 @@ public class UserValidation {
 
     public boolean existsUser(User user) {
         return ((userRepository.findOneById(user.getId()) == null)
-                && userRepository.findOneByName(user.getName()) == null);
+                && userRepository.findOneByUserName(user.getName()) == null);
     }
 
     public boolean existsUserById(String userId) {
@@ -26,16 +26,16 @@ public class UserValidation {
     }
 
     public boolean existsUserByName(String name) {
-        return userRepository.findOneByName(name) != null;
+        return userRepository.findOneByUserName(name) != null;
     }
 
     public boolean oldPasswordCheck(String name, String oldPassword) {
-        User user = userRepository.findOneByName(name);
+        User user = userRepository.findOneByUserName(name);
         return user.getPassword().equals(oldPassword);
     }
 
     public boolean newPasswordCheck(UserPasswordChangePojo userPasswordChangePojo) {
-        User user = userRepository.findOneByName(userPasswordChangePojo.name);
+        User user = userRepository.findOneByUserName(userPasswordChangePojo.name);
 
         //Firstly, We have to check oldPassword and new password. They should not be same.
         if (user.getPassword().equals(userPasswordChangePojo.newPassword)) {
@@ -46,8 +46,8 @@ public class UserValidation {
     }
 
     public boolean checkLogin(User user) {
-        User userDB = userRepository.findOneByName(user.getName());
-        return userDB.getName().equals(user.getName()) && userDB.getPassword().equals(user.getPassword());
+        User userDB = userRepository.findOneByUserName(user.getUserName());
+        return userDB.getUserName().equals(user.getUserName()) && userDB.getPassword().equals(user.getPassword());
     }
 /*
     public boolean checkJwtToken(User user) {

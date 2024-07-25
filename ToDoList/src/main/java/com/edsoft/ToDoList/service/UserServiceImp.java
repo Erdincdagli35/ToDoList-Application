@@ -39,9 +39,18 @@ public class UserServiceImp implements UserService {
 
     @Override
     public User login(User user) {
-        log.info("User logged in with user.name: {}", user.getName());
-        User userTemp = userRepository.findOneByName(user.getName());
-        user.setJwtToken(jwtUtil.generateToken(user.getName()));
+        log.info("User logged in with user.name: {}", user.getUserName());
+        User userTemp = userRepository.findOneByUserName(user.getUserName());
+
+        user.setJwtToken(jwtUtil.generateToken(user.getUserName()));
+        user.setName(userTemp.getName());
+        user.setSurname(userTemp.getSurname());
+        user.setEmail(userTemp.getEmail());
+
+        if (userTemp.getTaskIds() != null) {
+            user.setTaskIds(userTemp.getTaskIds());
+        }
+
         user.setId(userTemp.getId());
 
         userRepository.save(user);
@@ -66,7 +75,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public User getByName(String name) {
-        return userRepository.findOneByName(name);
+        return userRepository.findOneByUserName(name);
     }
 
     @Override
@@ -80,31 +89,12 @@ public class UserServiceImp implements UserService {
     @Override
     public UserReturnPojo changePassword(UserPasswordChangePojo userPasswordChangePojo) {
         log.info("Changing password for user with name: {}", userPasswordChangePojo.getName());
-        User user = userRepository.findOneByName(userPasswordChangePojo.getName()); //DB User
+        User user = userRepository.findOneByUserName(userPasswordChangePojo.getName()); //DB User
         user.setPassword(userPasswordChangePojo.getNewPassword());
         User savedUser = userRepository.save(user);
         return userMapping.mapUserToUserReturnPojo(savedUser);
     }
 
-    /*
-    public List<User> getUsersByCriteria(String name, String password) {
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<User> criteriaQuery = builder.createQuery(User.class);
-        Root<User> root = criteriaQuery.from(User.class);
-        List<Predicate> predicates = new ArrayList<>();
-
-        if (name != null) {
-            predicates.add(builder.equal(root.get("name"), name));
-        }
-
-        if (password != null) {
-            predicates.add(builder.equal(root.get("password"), password));
-        }
-
-        criteriaQuery.where(builder.and(predicates.toArray(new Predicate[0])));
-        return entityManager.createQuery(criteriaQuery).getResultList();
-    }
-*/
     public String generateToken(String name) {
         return jwtUtil.generateToken(name);
     }

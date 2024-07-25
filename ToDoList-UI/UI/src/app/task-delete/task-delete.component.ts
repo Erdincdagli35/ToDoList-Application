@@ -34,7 +34,7 @@ export class TaskDeleteComponent {
   }
 
   goToList() {
-    this.router.navigate(['/task-list']);
+    this.router.navigate(['/task-list-by-user']);
   }
 
 }

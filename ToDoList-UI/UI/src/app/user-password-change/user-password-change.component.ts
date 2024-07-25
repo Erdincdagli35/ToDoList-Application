@@ -20,14 +20,7 @@ export class UserPasswordChangeComponent {
                 private router: Router){}
 
     ngOnInit(): void {
-      //this.user.name = this.activetedRoute.snapshot.params['name'];
-      console.log("user.name : " + this.user.name);
-      this.userService.getUserByName(this.user.name)
-                         .subscribe(data => {  
-        this.user.newPassword = data.password;
-        console.log("user.name : " + this.user.name);
-      },
-        error => console.log(error));
+     
     }
 
     onSubmit(){

@@ -27,8 +27,14 @@ public class TaskServiceImp implements TaskService {
 
     @Override
     public String addTaskToUser(Task task, String userName) {
-        User user = userRepository.findOneByName(userName);
-        List<String> taskIds = user.getTaskIds();
+        User user = userRepository.findOneByUserName(userName);
+        List<String> taskIds;
+
+        if (user.getTaskIds() != null){
+            taskIds = new ArrayList<>();
+        }
+
+        taskIds = user.getTaskIds();
 
         if (taskIds == null) {
             taskIds = new ArrayList<>();
@@ -47,7 +53,7 @@ public class TaskServiceImp implements TaskService {
 
     @Override
     public List<Task> getAllByUser(String userName) {
-        User user = userRepository.findOneByName(userName);
+        User user = userRepository.findOneByUserName(userName);
         List<Task> taskList = new ArrayList<>();
 
         if (user != null) {

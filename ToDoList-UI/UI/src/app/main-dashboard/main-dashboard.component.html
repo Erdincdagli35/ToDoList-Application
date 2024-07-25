@@ -1,33 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Management Dashboard</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Main Page</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container">
-        <div class="header-section d-flex justify-content-between align-items-center mb-4">
-            <h1 class="text-center">Management Dashboard</h1>
-            <div class="user-info d-flex align-items-center">
-                &nbsp;&nbsp;
-                <button class="btn btn-danger logout-btn" routerLink="">Log Out</button>
-            </div>
-        </div>
-
-        <nav class="nav nav-pills mb-3">
-            <a class="nav-link" routerLink="/user-list" routerLinkActive="active">User Management</a>
-            <a class="nav-link" routerLink="/task-list-by-user" routerLinkActive="active">Todo Management</a>
-        </nav>
-
-        <div class="content">
-            <!-- İçerik buraya gelecek -->
-        </div>
+  <div class="main-container">
+    <button class="btn btn-custom logout-btn" routerLink="">Log Out</button>
+    <div class="welcome-card">
+        <h2>Welcome to Your Task Management System</h2>
+        <p class="lead mt-4">Streamline your workflow and boost productivity with our intuitive task management platform. Effortlessly organize, track, and complete tasks with ease.</p>
+       <div class="d-flex justify-content-center mt-4">
+        <button class="btn btn-custom" routerLink="/user-list">User Management</button>
+        <button class="btn btn-custom" routerLink="/task-list-by-user">Task Management</button>
+      </div>
     </div>
+    <router-outlet></router-outlet> 
+  </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

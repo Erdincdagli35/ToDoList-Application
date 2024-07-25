@@ -6,6 +6,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.Field;
 
+
+
 @Document
 @Getter
 @Setter
@@ -23,4 +25,3 @@ public class Task {
     @Field
     private String userId;
 }
-

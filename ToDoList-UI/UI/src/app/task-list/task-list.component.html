@@ -1,34 +1,34 @@
-<hr>
-<div class="table-container">
-    <div class="container mt-4">
-        <router-outlet></router-outlet>
-      </div>
-    <h2>Task List</h2> 
-    <table class="table table-striped">
+<div class="container mt-4">
+    <div class="table-container">
+      <h2 class="text-center">Task List</h2>
+      <table class="table table-striped">
         <thead>
-            <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>User ID</th>
-                <th>Actions</th>
-                <th><button class="btn btn-primary back-btn" routerLink="/main-dashboard">Back</button>|
-                    <button class="btn btn-primary back-btn" routerLink="/task-add">Add</button></th>
-            </tr>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>User ID</th>
+            <th>Actions</th>
+            <th>
+              <button class="btn btn-custom" routerLink="/main-dashboard">Back</button>&nbsp;
+              <button class="btn btn-custom" routerLink="/task-add">Add</button>
+            </th>
+          </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let task of tasks">
-                <td>{{ task.id }}</td>
-                <td>{{ task.title }}</td>
-                <td>{{ task.description }}</td>
-                <td>{{ task.status }}</td>
-                <td>{{ task.userId }}</td>
-                <td>
-                    <button class="btn btn-primary mr-2" (click)="deleteTask(task.id)">Delete</button>
-                    <button class="btn btn-primary mr-2" routerLink="/task-edit">Update</button>
-                </td>
-            </tr>
+          <tr *ngFor="let task of tasks">
+            <td>{{ task.id }}</td>
+            <td>{{ task.title }}</td>
+            <td>{{ task.description }}</td>
+            <td>{{ task.status }}</td>
+            <td>{{ task.userId }}</td>
+            <td>
+              <button class="btn btn-danger mr-2" (click)="deleteTask(task.id)">Delete</button> &nbsp;
+              <button class="btn btn-primary" routerLink="/task-edit">Update</button>
+            </td>
+          </tr>
         </tbody>
-    </table>
-</div>
+      </table>
+    </div>
+  </div>

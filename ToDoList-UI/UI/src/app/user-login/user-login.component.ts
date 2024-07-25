@@ -21,24 +21,30 @@ export class UserLoginComponent {
   
     ngOnInit(): void {
     }
-
-
+    
     login() {
-      this.userService.login(this.user).subscribe(data => {
-        this.currentUserName = this.user.name;
-        this.userService.setUserName(this.currentUserName);
-        console.log("currentUsernma : " + this.currentUserName);
-      },
-        error => console.log(error));
+      this.userService.login(this.user).subscribe(
+        data => {
+          this.currentUserName = this.user.userName;
+          this.userService.setUserName(this.currentUserName);
+          console.log("currentUsernma : " + this.currentUserName);
+          // Giriş başarılı olduğunda ana sayfaya yönlendirme
+          this.goToMain();
+        },
+        error => {
+          console.error("Login error: ", error);
+          // Giriş hatası olduğunda bir hata mesajı gösterme
+          //alert("Login failed: " + error.message);
+        }
+      );
     }
-
+    
     goToMain() {
       this.router.navigate(['/main-dashboard']); 
     }
-
+    
     onSubmit() {
       console.log(this.user);
       this.login();
-      this.goToMain();
     }
 }

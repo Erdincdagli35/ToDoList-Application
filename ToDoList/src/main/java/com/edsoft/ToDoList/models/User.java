@@ -1,7 +1,6 @@
 package com.edsoft.ToDoList.models;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.Field;
@@ -9,16 +8,23 @@ import org.springframework.data.couchbase.core.mapping.Field;
 import java.util.List;
 
 @Document
-@Getter
-@Setter
+@Data
 public class User {
     @Id
     private String id;
 
-    private String name;
+    private String userName;
+
     private String password;
+
+    private String jwtToken;
+
+    private String name;
+
+    private String surname;
+
+    private String email;
 
     @Field
     private List<String> taskIds;
-    private String jwtToken;
 }

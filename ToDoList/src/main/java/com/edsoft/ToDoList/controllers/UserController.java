@@ -111,23 +111,17 @@ public class UserController {
     @PostMapping("/login")
     @Operation(summary = "User Login", description = "Authenticate a user")
     public ResponseEntity login(@RequestBody User user) {
-        if (!userValidation.existsUserByName(user.getName())) {
+        if (!userValidation.existsUserByName(user.getUserName())) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body("Same user exists");
         }
-/*
-        if (!userValidation.checkJwtToken(user)) {
-            return ResponseEntity
-                    .status(HttpStatus.UNAUTHORIZED)
-                    .body("Jwt token did not match");
-        }*/
 
         if (!userValidation.checkLogin(user)) {
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
                     .body("Wrong password or username please check out again: \n" +
-                            "User Name: " + user.getName() + " Password : " + user.getPassword());
+                            "User Name: " + user.getUserName() + " Password : " + user.getPassword());
         }
 
         return ResponseEntity.ok(userService.login(user));
