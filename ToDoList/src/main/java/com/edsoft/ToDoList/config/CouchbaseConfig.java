@@ -5,12 +5,14 @@ import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.couchbase.CouchbaseClientFactory;
 import org.springframework.data.couchbase.SimpleCouchbaseClientFactory;
 import org.springframework.data.couchbase.config.AbstractCouchbaseConfiguration;
 import org.springframework.data.couchbase.core.CouchbaseTemplate;
 import org.springframework.data.couchbase.core.convert.CouchbaseCustomConversions;
+import org.springframework.data.couchbase.core.mapping.event.ValidatingCouchbaseEventListener;
 import org.springframework.data.couchbase.repository.config.RepositoryOperationsMapping;
 
 import java.util.Collections;
@@ -72,7 +74,6 @@ public class CouchbaseConfig extends AbstractCouchbaseConfiguration {
     }
 
     private CouchbaseClientFactory couchbaseClientFactory(String bucketName) {
-        return new SimpleCouchbaseClientFactory(couchbaseCluster(couchbaseClusterEnvironment()),
-                bucketName, this.getScopeName());
+        return new SimpleCouchbaseClientFactory(couchbaseCluster(couchbaseClusterEnvironment()), bucketName, this.getScopeName());
     }
 }

@@ -17,11 +17,11 @@ public class Task {
     private String id;
 
     private String title;
+
     private String description;
 
     private Status status = Status.NoProgress;
-    //private DateTime startDateTime;
-    //private DateTime endDateTime;
+
     private LocalDateTime createdDate = LocalDateTime.now();
 
     @Field

@@ -1,13 +1,8 @@
 package com.edsoft.ToDoList.controllers;
 
 
-import com.edsoft.ToDoList.exception.InvalidNewPasswordException;
-import com.edsoft.ToDoList.exception.InvalidOldPasswordException;
-import com.edsoft.ToDoList.exception.UserNotFoundException;
-import com.edsoft.ToDoList.models.Task;
 import com.edsoft.ToDoList.models.User;
 import com.edsoft.ToDoList.pojo.UserPasswordChangePojo;
-import com.edsoft.ToDoList.pojo.UserReturnPojo;
 import com.edsoft.ToDoList.repository.UserRepository;
 import com.edsoft.ToDoList.service.UserService;
 import com.edsoft.ToDoList.validation.UserValidation;
@@ -48,6 +43,25 @@ public class UserController {
         }
 
         return ResponseEntity.ok(userService.singUp(user));
+    }
+
+    @PostMapping("/login")
+    @Operation(summary = "User Login", description = "Authenticate a user")
+    public ResponseEntity login(@RequestBody User user) {
+        if (!userValidation.existsUserByName(user.getUserName())) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("Same user exists");
+        }
+
+        if (!userValidation.checkLogin(user)) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body("Wrong password or username please check out again: \n" +
+                            "User Name: " + user.getUserName() + " Password : " + user.getPassword());
+        }
+
+        return ResponseEntity.ok(userService.login(user));
     }
 
     @GetMapping
@@ -106,24 +120,5 @@ public class UserController {
 
 
         return ResponseEntity.ok(userService.changePassword(userPasswordChangePojo));
-    }
-
-    @PostMapping("/login")
-    @Operation(summary = "User Login", description = "Authenticate a user")
-    public ResponseEntity login(@RequestBody User user) {
-        if (!userValidation.existsUserByName(user.getUserName())) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body("Same user exists");
-        }
-
-        if (!userValidation.checkLogin(user)) {
-            return ResponseEntity
-                    .status(HttpStatus.UNAUTHORIZED)
-                    .body("Wrong password or username please check out again: \n" +
-                            "User Name: " + user.getUserName() + " Password : " + user.getPassword());
-        }
-
-        return ResponseEntity.ok(userService.login(user));
     }
 }

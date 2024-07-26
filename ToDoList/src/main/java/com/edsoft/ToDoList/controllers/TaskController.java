@@ -2,7 +2,6 @@ package com.edsoft.ToDoList.controllers;
 
 import com.edsoft.ToDoList.models.Status;
 import com.edsoft.ToDoList.models.Task;
-import com.edsoft.ToDoList.models.UserAndTask;
 import com.edsoft.ToDoList.repository.TaskRepository;
 import com.edsoft.ToDoList.service.TaskService;
 import io.swagger.v3.oas.annotations.Operation;

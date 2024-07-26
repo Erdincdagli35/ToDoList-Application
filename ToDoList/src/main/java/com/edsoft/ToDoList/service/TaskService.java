@@ -2,7 +2,7 @@ package com.edsoft.ToDoList.service;
 
 import com.edsoft.ToDoList.models.Status;
 import com.edsoft.ToDoList.models.Task;
-import com.edsoft.ToDoList.models.UserAndTask;
+import com.edsoft.ToDoList.pojo.UserAndTask;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

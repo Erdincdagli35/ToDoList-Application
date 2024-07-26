@@ -13,19 +13,33 @@ import java.util.List;
 public class SwaggerConfig {
     @Bean
     public OpenAPI defineOpenApi() {
+        return new OpenAPI()
+                .info(apiInfo())
+                .servers(apiServers());
+    }
+
+    @Bean
+    public Info apiInfo() {
+        return new Info()
+                .title("Employee Management System API")
+                .version("1.0")
+                .description("This API exposes endpoints to manage employees.")
+                .contact(apiContact());
+    }
+
+    @Bean
+    public Contact apiContact() {
+        return new Contact()
+                .name("Erdinç Dağlı")
+                .email("erdincdagli35@hotmail.com");
+    }
+
+    @Bean
+    public List<Server> apiServers() {
         Server server = new Server();
         server.setUrl("http://localhost:8080");
         server.setDescription("Development");
 
-        Contact myContact = new Contact();
-        myContact.setName("Jane Doe");
-        myContact.setEmail("your.email@gmail.com");
-
-        Info information = new Info()
-                .title("Employee Management System API")
-                .version("1.0")
-                .description("This API exposes endpoints to manage employees.")
-                .contact(myContact);
-        return new OpenAPI().info(information).servers(List.of(server));
+        return List.of(server);
     }
 }

@@ -1,5 +1,6 @@
-package com.edsoft.ToDoList.models;
+package com.edsoft.ToDoList.pojo;
 
+import com.edsoft.ToDoList.models.Status;
 import lombok.Data;
 
 @Data

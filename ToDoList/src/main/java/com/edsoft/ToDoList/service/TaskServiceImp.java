@@ -3,7 +3,7 @@ package com.edsoft.ToDoList.service;
 import com.edsoft.ToDoList.models.Status;
 import com.edsoft.ToDoList.models.Task;
 import com.edsoft.ToDoList.models.User;
-import com.edsoft.ToDoList.models.UserAndTask;
+import com.edsoft.ToDoList.pojo.UserAndTask;
 import com.edsoft.ToDoList.repository.TaskRepository;
 import com.edsoft.ToDoList.repository.UserRepository;
 import lombok.AllArgsConstructor;
