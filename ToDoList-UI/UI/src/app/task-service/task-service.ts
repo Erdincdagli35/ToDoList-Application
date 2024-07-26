@@ -29,12 +29,26 @@ export class TaskService {
     return this.httpClient.put(this.baseURL, task);
   }
   
-  getTaskByName(userName: string, status?: Status): Observable<Task[]> {
-    const statusParam = status ? `&status=${status}` : '';
-    return this.httpClient.get<Task[]>(`${this.baseURL}/${userName}?${statusParam}`);
+  getTaskByName(userName: string, status?: string, title?: string): Observable<any> {
+    let url = `${this.baseURL}/${userName}`;
+    if (status || title) {
+      url += '?';
+      if (status) {
+        url += `status=${status}&`;
+      }
+      if (title) {
+        url += `title=${title}`;
+      }
+      url = url.replace(/&$/, '');
+    }
+    return this.httpClient.get(url);
   }
   
   addTaskByName(task: Task, name: string): Observable<Task> {
     return this.httpClient.post<Task>(`${this.baseURL}/addTaskToUser/${name}`, task);
+  }
+
+  getTaskById(id: number): Observable<Task> {
+    return this.httpClient.get<Task>(`${this.baseURL}/getTask/${id}`);
   }
 }

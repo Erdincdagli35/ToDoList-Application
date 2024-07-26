@@ -20,11 +20,22 @@ export class TaskUpdateComponent {
   statuses: string[] = Object.values(Status);
 
     constructor(private taskService : TaskService, 
-                private activetedRoute: ActivatedRoute, 
+                private activatedRoute: ActivatedRoute, 
                 private router: Router){}
 
     ngOnInit(): void {
-      //this.user.name = this.activetedRoute.snapshot.params['name'];
+      const taskId = this.activatedRoute.snapshot.params['id'];    
+      console.log("taskId : " + taskId);
+
+      if (taskId) {
+        this.taskService.getTaskById(taskId).subscribe(
+          (data: Task) => {
+            this.taskTemp = data;
+            console.log("this.taskTemp.id " + this.taskTemp.id);
+          },
+          (error) => console.log(error)
+        );
+      }
     }
 
     onSubmit(){

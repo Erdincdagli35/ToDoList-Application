@@ -22,12 +22,11 @@ const routes: Routes = [
   { path: 'user-list-name/:name', component: UserListNameComponent },
   { path: 'user-list-by-id', component: UserGetByIdComponent },
   { path: 'user-delete/:id', component: UserDeleteComponent },
-  { path: 'user-password-change', component: UserPasswordChangeComponent},
+  { path: 'user-password-change/:userName', component: UserPasswordChangeComponent},
 
-  //{ path: 'task-list', component: TaskListComponent},
   { path: 'task-list-by-user', component: TaskListComponent},
   { path: 'task-delete/:id', component: TaskDeleteComponent},
-  { path: 'task-edit', component: TaskUpdateComponent},
+  { path: 'task-edit/:id', component: TaskUpdateComponent},
   { path: 'task-add', component:TaskAddComponent},
 
   { path: 'main-dashboard', component: MainDashboardComponent},

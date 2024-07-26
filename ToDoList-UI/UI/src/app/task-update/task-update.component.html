@@ -4,25 +4,25 @@
         <form>
             <div class="form-group">
                 <label for="id">Task ID:</label>
-                <input type="text" class="form-control" id="id" name="id" [(ngModel)]="task.id" placeholder="ID" required>
+                <input type="text" class="form-control" id="id" name="id" [(ngModel)]="task.id" [attr.placeholder]="taskTemp.id" required>
             </div>
             <div class="form-group">
                 <label for="title">Title:</label>
-                <input type="text" class="form-control" id="title" name="title" [(ngModel)]="task.title" placeholder="Title" required>
+                <input type="text" class="form-control" id="title" name="title" [(ngModel)]="task.title" [attr.placeholder]="taskTemp.title" required>
             </div>
             <div class="form-group">
                 <label for="description">Description:</label>
-                <input type="text" class="form-control" id="description" name="description" [(ngModel)]="task.description" placeholder="Description" required>
+                <input type="text" class="form-control" id="description" name="description" [(ngModel)]="task.description" [attr.placeholder]="taskTemp.description" required>
             </div>
             <div class="form-group">
                 <label for="status">Status:</label>
-                <select class="form-control" id="status" name="status" [(ngModel)]="task.status" required>
+                <select class="form-control" id="status" name="status" [(ngModel)]="task.status" [attr.placeholder]="taskTemp.status" required>
                     <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="userId">User ID:</label>
-                <input type="text" class="form-control" id="userId" name="userId" [(ngModel)]="task.userId" placeholder="User ID" required>
+                <input type="text" class="form-control" id="userId" name="userId" [(ngModel)]="task.userId" [attr.placeholder]="taskTemp.userId" required>
             </div>
             <button type="submit" class="btn btn-custom" (click)="onSubmit()">Submit</button>&nbsp;
             <button class="btn btn-custom mr-2" routerLink="/task-list-by-user">Back</button>

@@ -21,6 +21,7 @@ export class TaskListComponent {
   tasks : Task[] = [];
 
   statusFilter: Status | null = null; 
+  titleFilter: string = '';
 
   loggedUserName : string = "";
 
@@ -34,25 +35,30 @@ export class TaskListComponent {
 
   private getTaskByName() {
     const currentUserName = this.userService.getUserName();
-    
     const currentUserNameString: string = currentUserName.toString();
     console.log("currentUserNameString : " + currentUserNameString);
     this.loggedUserName = currentUserName;
-    const status = this.statusFilter !== null ? this.statusFilter : undefined;
 
-    this.taskService.getTaskByName(currentUserNameString, status).subscribe(data => {
+    const status = this.statusFilter !== null ? this.statusFilter : undefined;
+    const title = this.titleFilter !== '' ? this.titleFilter : undefined;
+
+    this.taskService.getTaskByName(currentUserNameString, status, title).subscribe(data => {
       console.log("data : " + data);
       this.tasks = data;
       console.log("this.tasks : " + this.tasks);
   });
   }
 
+  addTask(){
+    this.router.navigate(['/task-add']);
+  }
+
   deleteTask(id : string){
     this.router.navigate(['/task-delete',id]);
   }
 
-  updateTask() {
-    this.router.navigate(['/task-edit']);
+  updateTask(id : string) {
+    this.router.navigate(['/task-edit',id]);
   }
   goToTaskList(){
     this.router.navigate(['/task-list-by-user']);

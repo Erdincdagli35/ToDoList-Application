@@ -24,7 +24,7 @@
             <td>{{ user.surname }}</td>
             <td>{{ user.email }}</td>
             <td>
-              <button class="btn btn-primary mr-2" routerLink="/user-password-change">Change Password</button> &nbsp;
+              <button class="btn btn-primary mr-2" (click)="passwordChange(user.userName)">Change Password</button> &nbsp;
               <button class="btn btn-danger" (click)="deleteUser(user.id)">Delete</button>
             </td>
           </tr>

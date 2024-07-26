@@ -18,7 +18,6 @@ export class UserListComponent {
                 private router:Router){}
 
     ngOnInit(): void {
-      //this.getAllLibrary();
       this.getUser();
     }
   
@@ -39,23 +38,4 @@ export class UserListComponent {
     passwordChange(name: string){
       this.router.navigate(['/user-password-change',name]);
     }
-
-/*
-    saveLibrary(library: Library){
-      this.router.navigate(['/library-create']);
-    }
-
-   
-
-    detailsLibrary(id: number){
-      this.router.navigate(['/library-details',id]);
-    }
-
-    addToShelf(id : number){
-      this.router.navigate(['/library-add-to-shelf',id]);
-    }
-
-    removeAllShelves(id : number){
-      this.router.navigate(['/library-remove-all-shelves', id]);
-    }*/
 }

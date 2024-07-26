@@ -14,21 +14,39 @@ import { UserService } from '../user-service/user-service';
 })
 export class TaskAddComponent {
   task : Task = new Task();
+  userTemp : User = new User();
 
   taskStatus: { status: Status } = { status: Status.NoProgress };
   statuses: string[] = Object.values(Status);
 
   user: User = new User();
+  tasks : Task[] = [];
 
+  statusFilter: Status | null = null; 
   userName : string = "";
-  //currentUserNameString : string ="";
+  loggedUserName : string = "";
 
   constructor(private taskService: TaskService, 
               private userService: UserService,
-              private activetedRoute: ActivatedRoute, 
+              private activatedRoute: ActivatedRoute, 
               private router: Router){}
 
   ngOnInit(): void {
+    const currentUserName = this.userService.getUserName();
+    
+    const currentUserNameString: string = currentUserName.toString();
+    console.log("currentUserNameString : " + currentUserNameString);
+    this.loggedUserName = currentUserName;
+
+    if (this.loggedUserName) {
+      this.userService.getUserByName(this.loggedUserName).subscribe(
+        (data: User) => {
+          this.userTemp = data;
+          console.log("this.userTemp.id " + this.userTemp.id);
+        },
+        (error) => console.log(error)
+      );
+    }
   }
 
   goToTaskList() {

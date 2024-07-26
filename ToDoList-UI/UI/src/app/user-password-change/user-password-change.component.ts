@@ -17,12 +17,25 @@ export class UserPasswordChangeComponent {
   userPCP : UserPasswordChangePojo = new UserPasswordChangePojo();
 
   user : User = new User();
+  userTemp : User = new User();
 
     constructor(private userService : UserService, 
-                private activetedRoute: ActivatedRoute, 
+                private activatedRoute: ActivatedRoute, 
                 private router: Router){}
 
     ngOnInit(): void {
+      const userName = this.activatedRoute.snapshot.params['userName'];    
+      console.log("userName : " + userName);
+
+      if (userName) {
+        this.userService.getUserByName(userName).subscribe(
+          (data: User) => {
+            this.userTemp = data;
+            console.log("this.userTemp.id " + this.userTemp.id);
+          },
+          (error) => console.log(error)
+        );
+      }
     }
 
     onSubmit(){

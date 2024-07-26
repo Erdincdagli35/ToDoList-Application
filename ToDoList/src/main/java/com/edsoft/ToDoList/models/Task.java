@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.Field;
 
+import java.time.LocalDateTime;
 
 
 @Document
@@ -21,6 +22,7 @@ public class Task {
     private Status status = Status.NoProgress;
     //private DateTime startDateTime;
     //private DateTime endDateTime;
+    private LocalDateTime createdDate = LocalDateTime.now();
 
     @Field
     private String userId;

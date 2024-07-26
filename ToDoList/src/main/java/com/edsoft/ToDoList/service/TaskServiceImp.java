@@ -58,9 +58,9 @@ public class TaskServiceImp implements TaskService {
 
         if (user != null) {
             List<String> taskIdsList = user.getTaskIds();
-            if(taskIdsList != null) {
+            if (taskIdsList != null) {
                 for (String taskId : taskIdsList) {
-                    Task task = taskRepository.findOneById(taskId);
+                    Task task = taskRepository.findOneByIdOrderByCreatedDateDesc(taskId);
                     if (task != null) {
                         taskList.add(task);
                     }
@@ -79,9 +79,8 @@ public class TaskServiceImp implements TaskService {
         if (user != null) {
             List<String> taskIdsList = user.getTaskIds();
             if (taskIdsList != null) {
-                // Filter tasks by status
                 for (String taskId : taskIdsList) {
-                    Task task = taskRepository.findById(taskId).orElse(null);
+                    Task task = taskRepository.findOneByIdOrderByCreatedDateDesc(taskId);
                     if (task != null && task.getStatus() == status) {
                         taskList.add(task);
                     }
@@ -90,6 +89,24 @@ public class TaskServiceImp implements TaskService {
         }
 
         return taskList;
+    }
+
+    @Override
+    public List<Task> getAllByUserAndTitle(String userName, String title) {
+        User user = userRepository.findOneByUserName(userName);
+        if (user != null && user.getTaskIds() != null) {
+            return taskRepository.findByIdInAndTitleContainingOrderByCreatedDateDesc(user.getTaskIds(), title);
+        }
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<Task> getAllByUserAndStatusAndTitle(String userName, Status status, String title) {
+        User user = userRepository.findOneByUserName(userName);
+        if (user != null && user.getTaskIds() != null) {
+            return taskRepository.findByIdInAndStatusAndTitleContainingOrderByCreatedDateDesc(user.getTaskIds(), status, title);
+        }
+        return new ArrayList<>();
     }
 
     @Override
@@ -147,26 +164,7 @@ public class TaskServiceImp implements TaskService {
     }
 
     @Override
-    public List<UserAndTask> getAll() {
-        List<User> userList = userRepository.findAll();
-        List<Task> taskList = taskRepository.findAll();
-        List<UserAndTask> userAndTaskList = new ArrayList<>();
-
-        for (User user : userList) {
-            for (Task task : taskList) {
-                UserAndTask userAndTask = new UserAndTask();
-
-                userAndTask.setId(user.getId());
-                userAndTask.setName(user.getName());
-                userAndTask.setTaskId(task.getId());
-                userAndTask.setStatus(task.getStatus());
-                userAndTask.setTitle(task.getTitle());
-                userAndTask.setDescription(task.getDescription());
-
-                userAndTaskList.add(userAndTask);
-            }
-        }
-
-        return userAndTaskList;
+    public Task getById(String taskId) {
+        return taskRepository.findOneById(taskId);
     }
 }

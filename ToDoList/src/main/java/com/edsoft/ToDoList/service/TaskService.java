@@ -19,7 +19,11 @@ public interface TaskService {
 
     UserAndTask updateStatus(String taskId, Status status);
 
-    List<UserAndTask> getAll();
+    Task getById(String taskId);
 
     List<Task> getAllByUserAndStatus(String userName, Status status);
+
+    List<Task> getAllByUserAndTitle(String userName, String title);
+
+    List<Task> getAllByUserAndStatusAndTitle(String userName, Status status, String title);
 }

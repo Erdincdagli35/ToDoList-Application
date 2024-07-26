@@ -46,20 +46,25 @@ public class TaskController {
     @GetMapping("/{userName}")
     @Operation(summary = "List All By User", description = "List all task by user")
     public ResponseEntity<List<Task>> getAllByUser(@PathVariable String userName,
-                                                   @RequestParam(required = false) Status status) {
+                                                   @RequestParam(required = false) Status status,
+                                                   @RequestParam(required = false) String title) {
         List<Task> tasks;
-        if (status != null) {
+        if (status != null && title != null) {
+            tasks = taskService.getAllByUserAndStatusAndTitle(userName, status, title);
+        } else if (status != null) {
             tasks = taskService.getAllByUserAndStatus(userName, status);
+        } else if (title != null) {
+            tasks = taskService.getAllByUserAndTitle(userName, title);
         } else {
             tasks = taskService.getAllByUser(userName);
         }
         return ResponseEntity.ok(tasks);
     }
 
-    @GetMapping
-    @Operation(summary = "List All Task", description = "List all task")
-    public ResponseEntity<List<UserAndTask>> getAll() {
-        return ResponseEntity.ok(taskService.getAll());
+    @GetMapping("/getTask/{taskId}")
+    @Operation(summary = "List A Task By Id")
+    public ResponseEntity<Task> getById(@PathVariable String taskId) {
+        return ResponseEntity.ok(taskService.getById(taskId));
     }
 
     @DeleteMapping("/{taskId}")

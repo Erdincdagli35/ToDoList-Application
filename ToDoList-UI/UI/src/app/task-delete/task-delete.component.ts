@@ -28,6 +28,7 @@ export class TaskDeleteComponent {
   ngOnInit(): void {
     this.task.id = this.activatedRoute.snapshot.params['id'];
     console.log(`this.task.id: ${this.task.id}`);
+    
     this.taskService.deleteTask(this.task.id).subscribe(data => {
       this.goToList();
     });
