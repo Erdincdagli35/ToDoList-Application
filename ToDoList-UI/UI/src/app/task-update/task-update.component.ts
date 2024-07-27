@@ -39,7 +39,7 @@ export class TaskUpdateComponent {
     }
 
     onSubmit(){
-      this.taskService.editTask(this.task)
+      this.taskService.editTask(this.taskTemp)
                          .subscribe(data => {
         console.log("updateuser");
         this.goToList();

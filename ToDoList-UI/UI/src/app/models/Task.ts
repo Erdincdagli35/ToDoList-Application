@@ -4,4 +4,5 @@ export class Task {
     description : string = "";
     status : string = "";
     userId : string = "";
+    createdDate : Date | null = null;
   }

@@ -17,8 +17,8 @@ public class UserValidation {
     JwtUtil jwtUtil;
 
     public boolean existsUser(User user) {
-        return ((userRepository.findOneById(user.getId()) == null)
-                && userRepository.findOneByUserName(user.getName()) == null);
+        return ((userRepository.findOneById(user.getId()) != null)
+                && userRepository.findOneByUserName(user.getUserName()) != null);
     }
 
     public boolean existsUserById(String userId) {

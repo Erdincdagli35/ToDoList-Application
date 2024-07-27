@@ -60,7 +60,7 @@ export class TaskAddComponent {
     const currentUserNameString: string = currentUserName.toString();
     console.log("currentUserNameString : " + currentUserNameString);
 
-
+    this.task.userId = this.userTemp.id;
     this.taskService.addTaskByName(this.task,currentUserNameString).subscribe(data => {
       this.goToTaskList();
     })

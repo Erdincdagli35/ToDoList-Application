@@ -1,0 +1,32 @@
+.table-container {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+  }
+  
+  .table-container .d-flex {
+    flex-wrap: nowrap;
+  }
+  
+  .table-container .form-control {
+    max-width: 150px; /* Filter and search fields are narrower */
+  }
+  
+  .table-container .btn {
+    margin: 0 5px;
+  }
+  
+  .table-container .table-responsive {
+    overflow-x: auto;
+  }
+  
+  .table-container .table-bordered {
+    border: 1px solid #ddd;
+  }
+  
+  .table-container .table th, .table-container .table td {
+    text-align: center;
+    vertical-align: middle;
+  }
+  

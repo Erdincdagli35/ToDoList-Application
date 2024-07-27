@@ -14,6 +14,12 @@ public interface TaskRepository extends CouchbaseRepository<Task, String> {
     Task findOneByIdOrderByCreatedDateDesc(String id);
     List<Task> findByIdInAndTitleContainingOrderByCreatedDateDesc(List<String> ids, String title);
     List<Task> findByIdInAndStatusAndTitleContainingOrderByCreatedDateDesc(List<String> ids, Status status, String title);
-    List<Task> findAll();
+    List<Task> findAllByOrderByCreatedDateDesc();
+
+    List<Task> findAllByStatusAndTitleContainingOrderByCreatedDateDesc(Status status, String title);
+
+    List<Task> findAllByStatusOrderByCreatedDateDesc(Status status);
+
+    List<Task> findAllByTitleContainingOrderByCreatedDateDesc(String title);
 
 }

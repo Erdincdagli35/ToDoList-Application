@@ -35,12 +35,11 @@ public class UserController {
     @PostMapping("/singUp")
     @Operation(summary = "User Sign Up", description = "Register a new user in the system")
     public ResponseEntity singUp(@RequestBody User user) {
-        if (!userValidation.existsUser(user)) {
+       /* if (!userValidation.existsUserByName(user.getUserName())) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
-                    .body("There is a user with the same id: " + user.getId() +
-                            " or username: " + user.getName());
-        }
+                    .body("Same user exists");
+        }*/
 
         return ResponseEntity.ok(userService.singUp(user));
     }
@@ -67,7 +66,7 @@ public class UserController {
     @GetMapping
     @Operation(summary = "Get All Users", description = "Retrieve all users or filter by name and password")
     public ResponseEntity<List<User>> getAll(@RequestParam(required = false) String name,
-                                                       @RequestParam(required = false) String password) {
+                                             @RequestParam(required = false) String password) {
         return ResponseEntity.ok(userService.getAll(name, password));
     }
 
@@ -100,23 +99,23 @@ public class UserController {
     @PutMapping("/changePassword")
     @Operation(summary = "Change User Password", description = "Change the password of a user")
     public ResponseEntity changePassword(@RequestBody UserPasswordChangePojo userPasswordChangePojo) {
-            if (!userValidation.existsUserByName(userPasswordChangePojo.getName())) {
-                return ResponseEntity
-                        .status(HttpStatus.NOT_FOUND)
-                        .body("There is a same user");
-            }
-
-            if (!userValidation.oldPasswordCheck(userPasswordChangePojo.getName(), userPasswordChangePojo.getOldPassword())) {
-                return ResponseEntity
-                        .status(HttpStatus.UNAUTHORIZED)
-                        .body("Old password not correct entered");
+        if (!userValidation.existsUserByName(userPasswordChangePojo.getName())) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("There is a same user");
         }
 
-            if (!userValidation.newPasswordCheck(userPasswordChangePojo)) {
-                return ResponseEntity
-                        .status(HttpStatus.BAD_REQUEST)
-                        .body("Invalid new password error");
-            }
+        if (!userValidation.oldPasswordCheck(userPasswordChangePojo.getName(), userPasswordChangePojo.getOldPassword())) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body("Old password not correct entered");
+        }
+
+        if (!userValidation.newPasswordCheck(userPasswordChangePojo)) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("Invalid new password error");
+        }
 
 
         return ResponseEntity.ok(userService.changePassword(userPasswordChangePojo));

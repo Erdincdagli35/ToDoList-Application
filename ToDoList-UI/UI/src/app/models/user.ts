@@ -6,4 +6,5 @@ export class User {
     name : string = "" ;
     surname : string = "" ;
     email : string = "" ;
+    createdDate : Date | null = null;
   }

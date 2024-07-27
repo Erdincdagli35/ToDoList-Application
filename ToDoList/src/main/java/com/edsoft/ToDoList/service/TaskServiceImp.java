@@ -1,9 +1,11 @@
 package com.edsoft.ToDoList.service;
 
+import com.edsoft.ToDoList.models.Counter;
 import com.edsoft.ToDoList.models.Status;
 import com.edsoft.ToDoList.models.Task;
 import com.edsoft.ToDoList.models.User;
 import com.edsoft.ToDoList.pojo.UserAndTask;
+import com.edsoft.ToDoList.repository.CounterRepository;
 import com.edsoft.ToDoList.repository.TaskRepository;
 import com.edsoft.ToDoList.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Log4j2
@@ -25,14 +28,13 @@ public class TaskServiceImp implements TaskService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private CounterRepository counterRepository;
+
     @Override
     public String addTaskToUser(Task task, String userName) {
         User user = userRepository.findOneByUserName(userName);
         List<String> taskIds;
-
-        if (user.getTaskIds() != null){
-            taskIds = new ArrayList<>();
-        }
 
         taskIds = user.getTaskIds();
 
@@ -41,6 +43,8 @@ public class TaskServiceImp implements TaskService {
             user.setTaskIds(taskIds);
         }
 
+        Long newId = incrementCounter();
+        task.setId(newId.toString());
         taskRepository.save(task);  // Save the task first to generate its ID
 
         taskIds.add(task.getId());  // Ensure the task ID is added after the task is saved
@@ -49,7 +53,6 @@ public class TaskServiceImp implements TaskService {
         userRepository.save(user);  // Save the user with the updated task IDs list
         return task.getId();
     }
-
 
     @Override
     public List<Task> getAllByUser(String userName) {
@@ -110,6 +113,26 @@ public class TaskServiceImp implements TaskService {
     }
 
     @Override
+    public List<Task> getAll() {
+        return taskRepository.findAllByOrderByCreatedDateDesc();
+    }
+
+    @Override
+    public List<Task> getAllByStatusAndTitle(Status status, String title) {
+        return taskRepository.findAllByStatusAndTitleContainingOrderByCreatedDateDesc(status, title);
+    }
+
+    @Override
+    public List<Task> getAllByStatus(Status status) {
+        return taskRepository.findAllByStatusOrderByCreatedDateDesc(status);
+    }
+
+    @Override
+    public List<Task> getAllByTitle(String title) {
+        return taskRepository.findAllByTitleContainingOrderByCreatedDateDesc(title);
+    }
+
+    @Override
     public String delete(String taskId) {
         Task task = taskRepository.findOneById(taskId);
         String userId = task.getUserId();
@@ -166,5 +189,15 @@ public class TaskServiceImp implements TaskService {
     @Override
     public Task getById(String taskId) {
         return taskRepository.findOneById(taskId);
+    }
+
+    private Long incrementCounter() {
+        String counterId = "global_counter";
+        Counter counter = counterRepository.findById(counterId)
+                .orElse(new Counter(counterId, 0L));
+
+        counter.setValue(counter.getValue() + 1);
+        counterRepository.save(counter);
+        return counter.getValue();
     }
 }

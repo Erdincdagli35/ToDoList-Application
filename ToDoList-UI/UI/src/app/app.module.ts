@@ -19,6 +19,7 @@ import { TaskDeleteComponent } from './task-delete/task-delete.component';
 import { TaskUpdateComponent } from './task-update/task-update.component';
 import { TaskUpdateStatusComponent } from './task-update-status/task-update-status.component';
 import { TaskAddComponent } from './task-add/task-add.component';
+import { TaskListAllAdminComponent } from './task-list-all-admin/task-list-all-admin.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { TaskAddComponent } from './task-add/task-add.component';
     TaskUpdateComponent,
     TaskUpdateStatusComponent,
     TaskAddComponent,
+    TaskListAllAdminComponent,
     ],
   imports: [
     BrowserModule,

@@ -60,6 +60,24 @@ public class TaskController {
         return ResponseEntity.ok(tasks);
     }
 
+    @GetMapping("/getAll")
+    @Operation(summary = "List All", description = "List all task")
+    public ResponseEntity<List<Task>> getAll(@RequestParam(required = false) Status status,
+                                             @RequestParam(required = false) String title) {
+        List<Task> tasks;
+        if (status != null && title != null) {
+            tasks = taskService.getAllByStatusAndTitle(status, title);
+        } else if (status != null) {
+            tasks = taskService.getAllByStatus(status);
+        } else if (title != null) {
+            tasks = taskService.getAllByTitle(title);
+        }else {
+            tasks = taskService.getAll();
+        }
+
+        return ResponseEntity.ok(tasks);
+    }
+
     @GetMapping("/getTask/{taskId}")
     @Operation(summary = "List A Task By Id")
     public ResponseEntity<Task> getById(@PathVariable String taskId) {

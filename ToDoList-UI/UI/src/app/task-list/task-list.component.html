@@ -11,6 +11,7 @@
           <option value="Started">Started</option>
           <option value="Done">Done</option>
         </select>
+        <button class="btn btn-primary mr-2" (click)="applyFilter()">Apply</button>
       </div>
       
       <div class="d-flex align-items-center flex-grow-1 mx-2">
@@ -18,7 +19,6 @@
       </div>
       
       <div class="d-flex align-items-center">
-        <button class="btn btn-primary mr-2" (click)="applyFilter()">Apply</button>
         <button class="btn btn-primary mr-2" (click)="applyFilter()">Search</button>
         <button class="btn btn-secondary mr-2" routerLink="/main-dashboard">Back</button>
         <button class="btn btn-success" (click)="addTask()">Add Task</button>
@@ -33,6 +33,7 @@
             <th>Title</th>
             <th>Description</th>
             <th>Status</th>
+            <th>Created Date</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -42,6 +43,7 @@
             <td>{{ task.title }}</td>
             <td>{{ task.description }}</td>
             <td>{{ task.status }}</td>
+            <td>{{ task.createdDate }}</td>
             <td>
               <button class="btn btn-danger btn-sm" (click)="deleteTask(task.id)">Delete</button>
               <button class="btn btn-info btn-sm ml-2" (click)="updateTask(task.id)">Update</button>

@@ -17,8 +17,20 @@ export class TaskService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getTaskList(): Observable<UserAndTask[]> {
-    return this.httpClient.get<UserAndTask[]>(`${this.baseURL}`);
+  getTaskList(status?: string, title?: string): Observable<any> {
+
+    let url = `${this.baseURL}/getAll`;
+    if (status || title) {
+      url += '?';
+      if (status) {
+        url += `status=${status}&`;
+      }
+      if (title) {
+        url += `title=${title}`;
+      }
+      url = url.replace(/&$/, '');
+    }
+    return this.httpClient.get(url);
   }
 
   deleteTask(id: string): Observable<Object> {

@@ -1,0 +1,51 @@
+<div class="container mt-4">
+    <div class="table-container">
+      <h2 class="text-center mb-4">{{ loggedUserName }}'s Task List</h2>
+  
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex align-items-center flex-grow-1 mr-2">
+          <label for="statusFilter" class="mr-2">Filter By Status:</label>
+          <select id="statusFilter" class="form-control form-control-sm" [(ngModel)]="statusFilter">
+            <option value="">All</option>
+            <option value="NoProgress">No Progress</option>
+            <option value="Started">Started</option>
+            <option value="Done">Done</option>
+          </select>
+          <button class="btn btn-primary mr-2" (click)="applyFilter()">Apply</button>
+        </div>
+        
+        <div class="d-flex align-items-center flex-grow-1 mx-2">
+          <input type="text" class="form-control form-control-sm" placeholder="Search by title" [(ngModel)]="titleFilter">
+        </div>
+        
+        <div class="d-flex align-items-center">
+          <button class="btn btn-primary mr-2" (click)="applyFilter()">Search</button>
+          <button class="btn btn-secondary mr-2" routerLink="/main-dashboard">Back</button>
+        </div>
+      </div>
+  
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Status</th>
+              <th>Created Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let task of tasks">
+              <td>{{ task.id }}</td>
+              <td>{{ task.title }}</td>
+              <td>{{ task.description }}</td>
+              <td>{{ task.status }}</td>
+              <td>{{ task.createdDate }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

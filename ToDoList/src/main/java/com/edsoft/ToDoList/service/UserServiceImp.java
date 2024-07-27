@@ -1,10 +1,12 @@
 package com.edsoft.ToDoList.service;
 
 import com.edsoft.ToDoList.mapping.UserMapping;
+import com.edsoft.ToDoList.models.Counter;
 import com.edsoft.ToDoList.models.Task;
 import com.edsoft.ToDoList.models.User;
 import com.edsoft.ToDoList.pojo.UserPasswordChangePojo;
 import com.edsoft.ToDoList.pojo.UserReturnPojo;
+import com.edsoft.ToDoList.repository.CounterRepository;
 import com.edsoft.ToDoList.repository.TaskRepository;
 import com.edsoft.ToDoList.repository.UserRepository;
 import com.edsoft.ToDoList.security.JwtUtil;
@@ -30,11 +32,26 @@ public class UserServiceImp implements UserService {
     @Autowired
     private UserMapping userMapping;
 
+    @Autowired
+    private CounterRepository counterRepository;
+
     @Override
     public User singUp(User user) {
         log.info("User signed up with ID: {}", user.getId());
+        user.setId(incrementCounter().toString());
+
         user = userRepository.save(user);
         return user;
+    }
+
+    private Long incrementCounter() {
+        String counterId = "global_counter";
+        Counter counter = counterRepository.findById(counterId)
+                .orElse(new Counter(counterId, 0L));
+
+        counter.setValue(counter.getValue() + 1);
+        counterRepository.save(counter);
+        return counter.getValue();
     }
 
     @Override
@@ -61,7 +78,7 @@ public class UserServiceImp implements UserService {
     public List<User> getAll(String name, String password) {
         log.info("Getting all users");
         //List<User> users = getUsersByCriteria(name, password);
-        List<User> users = userRepository.findAll();
+        List<User> users = userRepository.findAllByOrderByCreatedDateDesc();
         //return userMapping.mapUsersToUserReturnsPojo(users);
         return users;
     }

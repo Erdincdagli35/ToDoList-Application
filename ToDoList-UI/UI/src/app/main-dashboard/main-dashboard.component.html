@@ -13,8 +13,8 @@
         <h2>Welcome to Your Task Management System</h2>
         <p class="lead mt-4">Streamline your workflow and boost productivity with our intuitive task management platform. Effortlessly organize, track, and complete tasks with ease.</p>
        <div class="d-flex justify-content-center mt-4">
-        <button class="btn btn-custom" routerLink="/user-list">User Management</button>
-        <button class="btn btn-custom" routerLink="/task-list-by-user">Task Management</button>
+        <button class="btn btn-custom" *ngIf="loggedUserName == 'admin'" routerLink="/user-list" >User Management</button>
+        <button class="btn btn-custom" [routerLink]="loggedUserName == 'admin' ? '/task-list' : '/task-list-by-user'">Task Management</button>
       </div>
     </div>
     <router-outlet></router-outlet> 

@@ -26,4 +26,12 @@ public interface TaskService {
     List<Task> getAllByUserAndTitle(String userName, String title);
 
     List<Task> getAllByUserAndStatusAndTitle(String userName, Status status, String title);
+
+    List<Task> getAll();
+
+    List<Task> getAllByStatusAndTitle(Status status, String title);
+
+    List<Task> getAllByStatus(Status status);
+
+    List<Task> getAllByTitle(String title);
 }
