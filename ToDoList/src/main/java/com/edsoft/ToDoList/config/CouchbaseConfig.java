@@ -1,5 +1,6 @@
 package com.edsoft.ToDoList.config;
 
+
 import com.edsoft.ToDoList.models.User;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;

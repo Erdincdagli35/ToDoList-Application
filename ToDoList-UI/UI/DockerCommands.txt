@@ -1,0 +1,47 @@
+Under Base Directory : ./UI/
+
+1.Dockerfile dosyasını oluşturun ve açın:
+
+New-Item -Path . -Name "Dockerfile" -ItemType "file"
+notepad Dockerfile
+
+2.Aşağıdaki içeriği Dockerfile dosyasına ekleyin ve kaydedin:
+
+# Stage 1: Build the Angular application
+FROM node:14 as build
+
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm install
+COPY . .
+RUN npm run build --prod
+
+# Stage 2: Serve the Angular application with Nginx
+FROM nginx:alpine
+COPY --from=build /app/dist/todolist-ui /usr/share/nginx/html
+
+# Nginx configuration
+COPY nginx.conf /etc/nginx/nginx.conf
+
+3.Projenizin kök dizininde bir nginx.conf dosyası oluşturun ve açın:
+New-Item -Path . -Name "nginx.conf" -ItemType "file"
+notepad nginx.conf
+
+4.Aşağıdaki içeriği nginx.conf dosyasına ekleyin ve kaydedin:
+server {
+    listen 80;
+
+    server_name localhost;
+
+    location / {
+        root /usr/share/nginx/html;
+        index index.html index.htm;
+        try_files $uri $uri/ /index.html;
+    }
+}
+
+5. docker build -t todolist-ui .
+
+6. docker run -d -p 4200:80 todolist-ui
+
+7.Tarayıcınızı açarak http://localhost:4200 adresine gidip uygulamanızın çalışıp çalışmadığını kontrol edin.

@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  todolist-couchbase:
+    build: ./couchbase
+    image: couchbase:7.6.1
+    container_name: todolist-couchbase
+    ports:
+      - "8091-8093:8091-8093"
+      - "11210:11210"
+
+  todolist-backend:
+    image: todolist-backend
+    container_name: todolist-backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - todolist-couchbase
+    environment:
+      - COUCHBASE_CONNECTION_STRING=couchbase://todolist-couchbase
+      - COUCHBASE_USER_NAME=erdinc
+      - COUCHBASE_PASSWORD=erdinc
+      - COUCHBASE_BUCKET_PRIMARY=todo-list-docker
+      - COUCHBASE_BUCKET_USER=todo-list-docker
+

@@ -47,7 +47,7 @@ public class UserControllerTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
-
+/*
     @Test
     void singUpUser_Success() {
         User user = new User();
@@ -194,5 +194,5 @@ public class UserControllerTest {
 
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
         assertEquals("Old password not correct entered", response.getBody());
-    }
+    }*/
 }

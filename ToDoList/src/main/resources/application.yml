@@ -1,8 +1,8 @@
 app:
   couchbase:
     connection-string: couchbase://127.0.0.1
-    user-name: erdi
-    password: erdi123
-    bucket-primary: todolist-app
-    bucket-user: todolist-app
+    user-name: erdinc
+    password: erdinc
+    bucket-primary: todo-list-docker
+    bucket-user: todo-list-docker
 
